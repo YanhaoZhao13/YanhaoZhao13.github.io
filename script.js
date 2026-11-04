@@ -37,10 +37,10 @@ function setLanguage(value) {
   language = value;
   root.lang = value === 'zh' ? 'zh-CN' : 'en';
   // Only translations authored in this repository are used here.
-  document.querySelectorAll('[data-cn][data-en]').forEach(el => { el.innerHTML = el.dataset[value === 'zh' ? 'cn' : 'en']; });
+  document.querySelectorAll('[data-cn][data-en]').forEach(el => { el.textContent = el.dataset[value === 'zh' ? 'cn' : 'en']; });
   save('site-language', value);
   updateControls();
-  if (typeof resizeCanvas === 'function' && ready) resizeCanvas();
+  if (ready) resizeCanvas();
 }
 themeBtn.addEventListener('click', () => setTheme(theme === 'dark' ? 'light' : 'dark'));
 langBtn.addEventListener('click', () => setLanguage(language === 'zh' ? 'en' : 'zh'));
@@ -53,12 +53,24 @@ let particles = [];
 let frame = null;
 let lastFrame = 0;
 let heroVisible = true;
-let width = 0, height = 0;
+let width = 0, height = 0, pixelRatio = 0;
+const hero = document.querySelector('.hero');
+const pointer = { x: 0, y: 0, active: false };
+// Input events only record coordinates; drawing stays in the existing 30 fps loop.
+hero.addEventListener('pointermove', event => {
+  if (reduced() || event.pointerType !== 'mouse') return;
+  const box = hero.getBoundingClientRect();
+  pointer.x = event.clientX - box.left; pointer.y = event.clientY - box.top;
+  pointer.active = true;
+}, { passive: true });
+hero.addEventListener('pointerleave', () => { pointer.active = false; });
 function resizeCanvas() {
   if (!ctx) return;
   const rect = canvas.getBoundingClientRect();
-  width = rect.width; height = rect.height;
   const dpr = Math.min(devicePixelRatio || 1, 2);
+  if (width === rect.width && height === rect.height && pixelRatio === dpr) return;
+  width = rect.width; height = rect.height; pixelRatio = dpr;
+  pointer.active = false;
   canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   particles = Array.from({ length: Math.min(55, Math.floor(width / 22)) }, () => ({ x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, r: .8 + Math.random() }));
@@ -69,14 +81,21 @@ function drawParticles(step) {
   ctx.clearRect(0, 0, width, height);
   const color = theme === 'dark' ? '174,151,255' : '91,116,163';
   for (const p of particles) {
+    // A small spring-back offset avoids drift or accumulating velocity.
+    const dx = p.x - pointer.x, dy = p.y - pointer.y;
+    const distance = Math.hypot(dx, dy);
+    const strength = pointer.active && !reduced() ? Math.max(0, 1 - distance / 130) : 0;
+    const px = p.x + (distance ? dx / distance : 0) * strength * 9;
+    const py = p.y + (distance ? dy / distance : 0) * strength * 9;
+    p.drawX = px; p.drawY = py;
     p.x += p.vx * step; p.y += p.vy * step;
     if (p.x < 0 || p.x > width) { p.vx *= -1; p.x = Math.max(0, Math.min(width, p.x)); }
     if (p.y < 0 || p.y > height) { p.vy *= -1; p.y = Math.max(0, Math.min(height, p.y)); }
-    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${color},.35)`; ctx.fill();
+    ctx.beginPath(); ctx.arc(px, py, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${color},.35)`; ctx.fill();
   }
   for (let i = 0; i < particles.length; i++) for (let j = i + 1; j < particles.length; j++) {
-    const a = particles[i], b = particles[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-    if (d < 110) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.strokeStyle = `rgba(${color},${.12 * (1 - d / 110)})`; ctx.lineWidth = .7; ctx.stroke(); }
+    const a = particles[i], b = particles[j], d = Math.hypot(a.drawX - b.drawX, a.drawY - b.drawY);
+    if (d < 110) { ctx.beginPath(); ctx.moveTo(a.drawX, a.drawY); ctx.lineTo(b.drawX, b.drawY); ctx.strokeStyle = `rgba(${color},${.12 * (1 - d / 110)})`; ctx.lineWidth = .7; ctx.stroke(); }
   }
 }
 function tick(time) {
@@ -89,7 +108,10 @@ function syncMotion() {
   root.dataset.motion = reduced() ? 'paused' : 'running';
   if (frame !== null) cancelAnimationFrame(frame);
   frame = null; lastFrame = performance.now();
+  pointer.active = false;
+  root.dataset.heroMotion = heroVisible && !document.hidden ? 'running' : 'paused';
   resetTilt(); updateControls();
+  syncReveals();
   if (!reduced() && !document.hidden && heroVisible && ctx) frame = requestAnimationFrame(tick);
   else drawParticles(0);
 }
@@ -107,6 +129,34 @@ motionQuery.addEventListener('change', syncMotion);
 document.addEventListener('visibilitychange', syncMotion);
 window.addEventListener('resize', resizeCanvas, { passive: true });
 if ('ResizeObserver' in window) new ResizeObserver(resizeCanvas).observe(document.querySelector('.hero'));
+// Progressive enhancement: content is visible without JS or observer support.
+let revealObserver = null;
+const revealTargets = [...document.querySelectorAll('.reveal')];
+function showReveal(el) {
+  el.classList.remove('reveal-pending');
+  el.classList.add('visible');
+  revealObserver?.unobserve(el);
+}
+function syncReveals() {
+  if (!('IntersectionObserver' in window) || reduced()) {
+    revealTargets.forEach(showReveal);
+    revealObserver?.disconnect();
+    return;
+  }
+  if (revealObserver) return;
+  revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) showReveal(entry.target); });
+  }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
+  revealTargets.forEach(el => {
+    if (el.classList.contains('visible')) return;
+    el.classList.add('reveal-pending');
+    revealObserver.observe(el);
+  });
+}
+document.addEventListener('focusin', event => {
+  // Never leave keyboard focus inside an invisible animated container.
+  event.target.closest('.reveal-pending') && showReveal(event.target.closest('.reveal-pending'));
+});
 if ('IntersectionObserver' in window) {
   new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; syncMotion(); }).observe(document.querySelector('.hero'));
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -120,3 +170,4 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('main section[id]').forEach(section => navObserver.observe(section));
 }
 setLanguage(language); setTheme(theme); ready = true; resizeCanvas(); syncMotion();
+

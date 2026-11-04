@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<meta charset="UTF-8">
 <script>
 try { document.documentElement.dataset.theme = localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light'; } catch (_) {}
 </script>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f7f8fa">
 <meta name="description" content="Yanhao Zhao — Every future is determined by the present.">
 <title>Yanhao Zhao — Personal Website</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='m20 6 13 7v14l-13 7-13-7V13Z' fill='none' stroke='%236655b5' stroke-width='3'/%3E%3Ccircle cx='20' cy='20' r='5' fill='%236655b5'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 
 <body>
@@ -44,7 +45,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
   </div>
 </header>
 
-<main id="main">
+<main id="main" tabindex="-1">
 
 <!-- HERO -->
 
@@ -90,11 +91,21 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
         <div class="molecule-stage" id="moleculeStage">
           <div class="molecule-grid"></div>
           <svg class="molecule" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g class="molecule-turn">
+            <defs>
+              <radialGradient id="atomLight" cx="30%" cy="25%" r="85%">
+                <stop class="atom-highlight" offset="0"/><stop class="atom-color" offset="1"/>
+              </radialGradient>
+              <radialGradient id="coreGlow"><stop class="glow-center"/><stop class="glow-edge" offset="1"/></radialGradient>
+            </defs>
+            <g class="molecule-orbits">
               <circle class="molecule-guide" cx="210" cy="210" r="166"/>
-              <g class="molecule-bonds"><path d="M210 210 142 104 265 83 326 186 273 306 148 326 85 222 142 104M210 210 326 186M210 210 273 306M210 210 148 326M210 210 85 222M142 104 265 83M265 83 326 186M273 306 148 326"/><path class="double-bond" d="m155 117 100-17m61 101-44 91m-130 18-44-77"/></g>
+              <ellipse class="molecule-orbit" cx="210" cy="210" rx="180" ry="117" transform="rotate(-28 210 210)"/>
+              <g class="orbit-tracer"><circle cx="210" cy="44" r="3"/></g>
+            </g>
+            <g class="molecule-turn">
+              <g class="molecule-bonds"><path d="M210 210 142 104 265 83 326 186 273 306 148 326 85 222 142 104M210 210 326 186M210 210 273 306M210 210 148 326M210 210 85 222"/><path class="double-bond" d="m155 117 100-17m61 101-44 91m-130 18-44-77"/></g>
               <g class="molecule-nodes"><circle cx="142" cy="104" r="15"/><circle cx="265" cy="83" r="10"/><circle cx="326" cy="186" r="19"/><circle cx="273" cy="306" r="13"/><circle cx="148" cy="326" r="18"/><circle cx="85" cy="222" r="10"/></g>
-              <circle class="molecule-halo" cx="210" cy="210" r="47"/>
+              <circle class="molecule-halo" cx="210" cy="210" r="60"/>
               <circle class="molecule-nucleus" cx="210" cy="210" r="27"/>
               <path class="nucleus-cross" d="M198 210h24m-12-12v24"/>
             </g>
@@ -124,7 +135,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 
     <div class="about-grid">
 
-      <div class="about-copy reveal language-content" data-cn="嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。" data-en="Hi, I'm Yanhao Zhao, from mainland China. I graduated from Beijing No. 4 High School and study at Peking University's School of Pharmaceutical Sciences as an undergraduate. I want to become someone who can take good care of himself and be truly independent. I also want to settle down to learn new things and always keep pace with the times.">嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。</div>
+      <div class="about-copy reveal language-content" data-cn="嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。" data-en="Hi, I'm Yanhao Zhao, from mainland China. I graduated from Beijing No. 4 High School and am an undergraduate at Peking University's School of Pharmaceutical Sciences. I want to become someone who can take good care of himself and be truly independent. I also want to give myself the time and focus to learn new things and keep pace with the times.">嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。</div>
 
       <div class="profile-facts reveal delay-1">
 
@@ -183,7 +194,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 
     <h2 class="section-heading reveal"
       data-cn="关于成长"
-      data-en="A way of becoming">
+      data-en="Growing as a person">
       关于成长
     </h2>
 
@@ -210,7 +221,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
         <h3 data-cn="沉下心来"
           data-en="Focused Learning">沉下心来</h3>
         <p data-cn="保持专注，认真理解每一件值得学习的事。"
-          data-en="Staying focused and understanding what is worth learning.">
+          data-en="Taking the time to focus and understand what I learn.">
           保持专注，认真理解每一件值得学习的事。
         </p>
       </article>
@@ -220,7 +231,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
         <h3 data-cn="保持好奇"
           data-en="Stay Curious">保持好奇</h3>
         <p data-cn="持续学习新知，主动理解不断变化的世界。"
-          data-en="Continuing to learn and understand a changing world.">
+          data-en="Continuing to learn and make sense of a changing world.">
           持续学习新知，主动理解不断变化的世界。
         </p>
       </article>
@@ -261,7 +272,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
       </h2>
 
       <p data-cn="欢迎访问我的 GitHub。未来的故事，还在继续。"
-        data-en="Feel free to visit my GitHub. The story continues.">
+        data-en="You can find me on GitHub. The story continues.">
         欢迎访问我的 GitHub。未来的故事，还在继续。
       </p>
 
@@ -287,8 +298,9 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
   </div>
 </footer>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=4" defer></script>
 
 </body>
 </html>
+
 
