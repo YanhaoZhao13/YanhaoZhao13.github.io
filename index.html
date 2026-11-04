@@ -13,9 +13,10 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="style.css?v=20261104-directional">
+<link rel="stylesheet" href="style.css?v=20261104-stage5">
 </head>
 
 <body>
@@ -57,9 +58,9 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 
       <div>
         <div class="eyebrow reveal"
-          data-cn="个人主页 · 2026"
-          data-en="PERSONAL WEBSITE · 2026">
-          个人主页 · 2026
+          data-cn="个人成长档案"
+          data-en="PERSONAL GROWTH ARCHIVE">
+          个人成长档案
         </div>
 
         <h1 class="reveal delay-1">
@@ -72,7 +73,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
           每一个未来都由当下决定
         </div>
 
-        <p class="hero-description reveal delay-3" data-cn="赵衍浩 · 北京大学药学院本科生" data-en="Yanhao Zhao · Undergraduate, School of Pharmaceutical Sciences, Peking University">赵衍浩 · 北京大学药学院本科生</p>
+        <p class="hero-description reveal delay-3" data-cn="赵衍浩 · 北京大学药学院本科生" data-en="Yanhao Zhao · Undergraduate in Pharmaceutical Sciences, Peking University">赵衍浩 · 北京大学药学院本科生</p>
 
         <div class="hero-actions reveal delay-3">
           <a href="#about" class="btn btn-primary"
@@ -125,7 +126,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 <section id="about">
   <div class="container">
 
-    <div class="section-number reveal">01 / ABOUT</div>
+    <div class="section-number reveal" data-cn="01 / 关于我" data-en="01 / ABOUT">01 / 关于我</div>
 
     <h2 class="section-heading reveal"
       data-cn="关于我"
@@ -135,17 +136,17 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 
     <div class="about-grid">
 
-      <div class="about-copy reveal language-content" data-cn="嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。" data-en="Hi, I'm Yanhao Zhao, from mainland China. I graduated from Beijing No. 4 High School and am an undergraduate at Peking University's School of Pharmaceutical Sciences. I want to become someone who can take good care of himself and be truly independent. I also want to give myself the time and focus to learn new things and keep pace with the times.">嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。</div>
+      <p class="about-copy reveal language-content" data-cn="嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。" data-en="Hi, I'm Yanhao Zhao, from mainland China. I graduated from Beijing No. 4 High School and am an undergraduate at Peking University's School of Pharmaceutical Sciences. I want to learn to take good care of myself and become truly independent. I also want to give myself the time and focus to learn new things and keep pace with the times.">嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。</p>
 
       <div class="profile-facts reveal delay-1">
 
         <div class="fact">
-          <div class="fact-label">NAME</div>
+          <div class="fact-label" data-cn="姓名" data-en="NAME">姓名</div>
           <div class="fact-value">赵衍浩 / Yanhao Zhao</div>
         </div>
 
         <div class="fact">
-          <div class="fact-label">LOCATION</div>
+          <div class="fact-label" data-cn="来自" data-en="LOCATION">来自</div>
           <div class="fact-value"
             data-cn="中国大陆"
             data-en="Mainland China">
@@ -154,7 +155,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
         </div>
 
         <div class="fact">
-          <div class="fact-label">HIGH SCHOOL</div>
+          <div class="fact-label" data-cn="高中" data-en="HIGH SCHOOL">高中</div>
           <div class="fact-value"
             data-cn="北京四中"
             data-en="Beijing No. 4 High School">
@@ -163,7 +164,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
         </div>
 
         <div class="fact">
-          <div class="fact-label">UNIVERSITY</div>
+          <div class="fact-label" data-cn="大学" data-en="UNIVERSITY">大学</div>
           <div class="fact-value"
             data-cn="北京大学"
             data-en="Peking University">
@@ -172,7 +173,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
         </div>
 
         <div class="fact">
-          <div class="fact-label">SCHOOL</div>
+          <div class="fact-label" data-cn="院系" data-en="SCHOOL">院系</div>
           <div class="fact-value"
             data-cn="药学院"
             data-en="School of Pharmaceutical Sciences">
@@ -190,7 +191,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 <section class="philosophy" id="philosophy">
   <div class="container">
 
-    <div class="section-number reveal">02 / PHILOSOPHY</div>
+    <div class="section-number reveal" data-cn="02 / 个人理念" data-en="02 / PHILOSOPHY">02 / 个人理念</div>
 
     <h2 class="section-heading reveal"
       data-cn="关于成长"
@@ -200,14 +201,14 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
 
     <p class="section-intro reveal"
       data-cn="比起急于定义自己，我更愿意在行动中认识自己，在学习中拓展自己的边界。"
-      data-en="Rather than defining myself too early, I would rather discover who I am through action and expand my horizons through learning.">
+      data-en="Rather than rushing to define myself, I want to understand myself through action and broaden my horizons through learning.">
       比起急于定义自己，我更愿意在行动中认识自己，在学习中拓展自己的边界。
     </p>
 
     <div class="philosophy-grid">
 
       <article class="principle reveal">
-        <div class="principle-index">01 — SELF</div>
+        <div class="principle-index" data-cn="01 — 独立" data-en="01 — SELF">01 — 独立</div>
         <h3 data-cn="独立自主"
           data-en="Independence">独立自主</h3>
         <p data-cn="学会照顾自己，建立自己的判断与生活。"
@@ -217,9 +218,9 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
       </article>
 
       <article class="principle reveal delay-1">
-        <div class="principle-index">02 — LEARN</div>
+        <div class="principle-index" data-cn="02 — 学习" data-en="02 — LEARN">02 — 学习</div>
         <h3 data-cn="沉下心来"
-          data-en="Focused Learning">沉下心来</h3>
+          data-en="Learning with focus">沉下心来</h3>
         <p data-cn="保持专注，认真理解每一件值得学习的事。"
           data-en="Taking the time to focus and understand what I learn.">
           保持专注，认真理解每一件值得学习的事。
@@ -227,9 +228,9 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
       </article>
 
       <article class="principle reveal delay-2">
-        <div class="principle-index">03 — GROW</div>
+        <div class="principle-index" data-cn="03 — 成长" data-en="03 — GROW">03 — 成长</div>
         <h3 data-cn="保持好奇"
-          data-en="Stay Curious">保持好奇</h3>
+          data-en="Staying curious">保持好奇</h3>
         <p data-cn="持续学习新知，主动理解不断变化的世界。"
           data-en="Continuing to learn and make sense of a changing world.">
           持续学习新知，主动理解不断变化的世界。
@@ -264,7 +265,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
   <div class="container">
     <div class="contact-panel reveal">
 
-      <div class="section-number">03 / CONNECT</div>
+      <div class="section-number" data-cn="03 / 保持联系" data-en="03 / CONNECT">03 / 保持联系</div>
 
       <h2 data-cn="保持联系。"
         data-en="Let's connect.">
@@ -279,7 +280,7 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
       <a class="btn btn-primary"
         href="https://github.com/YanhaoZhao13"
         target="_blank" rel="noopener noreferrer">
-        GitHub Profile ↗
+        GitHub ↗
       </a>
 
     </div>
@@ -298,9 +299,10 @@ try { document.documentElement.dataset.theme = localStorage.getItem('site-theme'
   </div>
 </footer>
 
-<script src="script.js?v=20261104-directional" defer></script>
+<script src="script.js?v=20261104-stage5" defer></script>
 
 </body>
 </html>
+
 
 

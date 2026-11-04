@@ -39,8 +39,13 @@ function setLanguage(value) {
   // Only translations authored in this repository are used here.
   document.querySelectorAll('[data-cn][data-en]').forEach(el => { el.textContent = el.dataset[value === 'zh' ? 'cn' : 'en']; });
   save('site-language', value);
+  document.querySelector('nav').setAttribute('aria-label', value === 'zh' ? '主导航' : 'Main navigation');
+  document.querySelector('.skip-link').textContent = value === 'zh' ? '跳至正文' : 'Skip to content';
+  document.querySelector('meta[name="description"]').content = value === 'zh'
+    ? '赵衍浩的个人成长档案：经历、思考与持续探索。每一个未来都由当下决定。'
+    : 'Yanhao Zhao’s personal growth archive: experiences, reflections, and ongoing exploration. Every future is determined by the present.';
   updateControls();
-  if (ready) resizeCanvas();
+  if (ready) { resizeCanvas(); updateHeaderHeight(); }
 }
 themeBtn.addEventListener('click', () => setTheme(theme === 'dark' ? 'light' : 'dark'));
 langBtn.addEventListener('click', () => setLanguage(language === 'zh' ? 'en' : 'zh'));
@@ -127,7 +132,12 @@ stage.addEventListener('pointerleave', resetTilt);
 motionBtn.addEventListener('click', () => { paused = !paused; save('site-motion', paused ? 'paused' : 'running'); syncMotion(); });
 motionQuery.addEventListener('change', syncMotion);
 document.addEventListener('visibilitychange', syncMotion);
-window.addEventListener('resize', resizeCanvas, { passive: true });
+const header = document.querySelector('header');
+function updateHeaderHeight() {
+  root.style.setProperty('--header-height', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+}
+window.addEventListener('resize', () => { resizeCanvas(); updateHeaderHeight(); }, { passive: true });
+if ('ResizeObserver' in window) new ResizeObserver(updateHeaderHeight).observe(header);
 if ('ResizeObserver' in window) new ResizeObserver(resizeCanvas).observe(document.querySelector('.hero'));
 // Progressive enhancement: content is visible without JS or observer support.
 let revealObserver = null;
@@ -193,5 +203,6 @@ if ('IntersectionObserver' in window) {
   }, { rootMargin: '-20% 0px -55% 0px' });
   document.querySelectorAll('main section[id]').forEach(section => navObserver.observe(section));
 }
-setLanguage(language); setTheme(theme); ready = true; resizeCanvas(); syncMotion();
+setLanguage(language); setTheme(theme); ready = true; updateHeaderHeight(); resizeCanvas(); syncMotion();
+
 
