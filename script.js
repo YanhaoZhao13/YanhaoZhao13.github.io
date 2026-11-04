@@ -132,7 +132,24 @@ if ('ResizeObserver' in window) new ResizeObserver(resizeCanvas).observe(documen
 // Progressive enhancement: content is visible without JS or observer support.
 let revealObserver = null;
 const revealTargets = [...document.querySelectorAll('.reveal')];
+let lastScrollY = window.scrollY;
+let scrollDirection = 'down';
+// Record direction only; IntersectionObserver still controls when animations run.
+window.addEventListener('scroll', () => {
+  const currentY = window.scrollY;
+  if (Math.abs(currentY - lastScrollY) > 1) {
+    scrollDirection = currentY > lastScrollY ? 'down' : 'up';
+    lastScrollY = currentY;
+  }
+}, { passive: true });
 function showReveal(el) {
+  if (el.classList.contains('reveal-pending') && !reduced()) {
+    el.dataset.revealDirection = scrollDirection;
+    el.style.setProperty('--reveal-offset', scrollDirection === 'down' ? '22px' : '-22px');
+    // Commit the hidden starting position before enabling the entrance transition.
+    // This read happens on entry only, never on each scroll event.
+    getComputedStyle(el).transform;
+  }
   el.classList.remove('reveal-pending');
   el.classList.add('visible');
 }

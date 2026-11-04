@@ -611,7 +611,8 @@ footer {
 
 .reveal.reveal-pending {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(var(--reveal-offset, 22px));
+  transition: none;
 }
 
 .reveal:focus-within {
