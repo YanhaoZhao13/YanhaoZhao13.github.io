@@ -1,7 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<script>
+try { document.documentElement.dataset.theme = localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light'; } catch (_) {}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f7f8fa">
@@ -12,656 +14,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  color-scheme: light;
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface-2: #edf0f5;
-  --text: #172033;
-  --muted: #68758a;
-  --line: #dfe4eb;
-  --accent: #536d91;
-  --accent-2: #8274d6;
-  --glow: rgba(130,116,214,.13);
-  --hero-gradient: #e9eef7;
-  --nav-bg: rgba(247,248,250,.82);
-  --shadow: 0 18px 60px rgba(25,40,70,.08);
-}
-
-[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0b0a12;
-  --surface: #151220;
-  --surface-2: #1c1929;
-  --text: #f1eff8;
-  --muted: #aaa5bc;
-  --line: #302b40;
-  --accent: #aaa0f3;
-  --accent-2: #b19bff;
-  --glow: rgba(139,112,255,.19);
-  --hero-gradient: #171326;
-  --nav-bg: rgba(11,10,18,.84);
-  --shadow: 0 18px 60px rgba(0,0,0,.28);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
-}
-
-body {
-  font-family: "Inter", "Manrope",
-    "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.8;
-  overflow-x: hidden;
-  transition: background .4s, color .4s;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-}
-
-.container {
-  width: min(1160px, 88%);
-  margin: auto;
-}
-
-/* NAVIGATION */
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  background: var(--nav-bg);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--line);
-  transition: background .4s;
-}
-
-nav {
-  height: 76px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-family: "Manrope", sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -1px;
-}
-
-.logo span {
-  color: var(--accent-2);
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 27px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 26px;
-  align-items: center;
-}
-
-.nav-links a {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
-  transition: color .25s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--accent-2);
-}
-
-.controls {
-  display: flex;
-  gap: 9px;
-}
-
-.control-btn {
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--text);
-  border-radius: 30px;
-  padding: 7px 12px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  transition: .3s;
-}
-
-.control-btn:hover {
-  border-color: var(--accent-2);
-  box-shadow: 0 0 15px var(--glow);
-  transform: translateY(-2px);
-}
-
-/* HERO */
-
-.hero {
-  min-height: 750px;
-  padding: 155px 0 100px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(
-    130deg, var(--bg), var(--hero-gradient), var(--bg)
-  );
-  overflow: hidden;
-}
-
-#particles {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr .8fr;
-  align-items: center;
-  gap: 35px;
-}
-
-.eyebrow {
-  color: var(--accent-2);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.hero h1 {
-  font-family: "Manrope", sans-serif;
-  font-size: clamp(58px, 8vw, 104px);
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -6px;
-  margin: 28px 0 22px;
-}
-
-.hero h1 span {
-  color: var(--accent-2);
-}
-
-.hero-motto {
-  font-size: clamp(19px, 2.5vw, 27px);
-  line-height: 1.55;
-  font-weight: 500;
-  max-width: 620px;
-}
-
-.hero-description {
-  color: var(--muted);
-  font-size: 14px;
-  margin-top: 24px;
-  max-width: 520px;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 35px;
-}
-
-.btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 9px;
-  padding: 12px 23px;
-  border-radius: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  transition: transform .3s, box-shadow .3s, background .3s;
-}
-
-.btn-primary {
-  background: var(--text);
-  color: var(--bg);
-}
-
-.btn-primary:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px var(--glow);
-}
-
-.btn-outline {
-  border: 1px solid var(--line);
-}
-
-.btn-outline:hover {
-  border-color: var(--accent-2);
-  color: var(--accent-2);
-  transform: translateY(-4px);
-}
-
-/* SCIENCE VISUAL */
-
-.science-visual {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 370px;
-}
-
-.orbit {
-  position: absolute;
-  width: 290px;
-  height: 290px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  animation: rotate 30s linear infinite;
-}
-
-.orbit.two {
-  width: 220px;
-  height: 220px;
-  border-style: dashed;
-  animation-direction: reverse;
-  animation-duration: 22s;
-}
-
-.orbit::before,
-.orbit::after {
-  content: "";
-  position: absolute;
-  width: 11px;
-  height: 11px;
-  background: var(--accent-2);
-  border-radius: 50%;
-  box-shadow: 0 0 22px var(--accent-2);
-}
-
-.orbit::before {
-  top: 35px;
-  left: 40px;
-}
-
-.orbit::after {
-  bottom: 30px;
-  right: 35px;
-  width: 7px;
-  height: 7px;
-}
-
-.core {
-  width: 115px;
-  height: 115px;
-  border-radius: 35%;
-  background: linear-gradient(140deg,
-    var(--accent), var(--accent-2));
-  display: grid;
-  place-items: center;
-  color: white;
-  font-size: 38px;
-  box-shadow: 0 0 75px var(--glow);
-  animation: breathe 4s ease-in-out infinite;
-}
-
-.visual-caption {
-  position: absolute;
-  bottom: 4px;
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-
-/* SECTIONS */
-
-section {
-  padding: 110px 0;
-  position: relative;
-}
-
-.section-number {
-  color: var(--accent-2);
-  font-size: 11px;
-  letter-spacing: 3px;
-  font-weight: 800;
-}
-
-.section-heading {
-  font-family: "Manrope", sans-serif;
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 800;
-  letter-spacing: -2px;
-  margin: 12px 0 30px;
-}
-
-.section-intro {
-  max-width: 690px;
-  color: var(--muted);
-  font-size: 15px;
-}
-
-/* ABOUT */
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.about-copy {
-  font-size: 16px;
-  line-height: 2.1;
-}
-
-.about-copy p + p {
-  margin-top: 22px;
-}
-
-.profile-facts {
-  border-top: 1px solid var(--line);
-}
-
-.fact {
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 15px;
-  font-size: 13px;
-}
-
-.fact-label {
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.fact-value {
-  font-weight: 600;
-}
-
-/* PHILOSOPHY */
-
-.philosophy {
-  background: var(--surface);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.philosophy-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 45px;
-}
-
-.principle {
-  padding: 30px 25px;
-  min-height: 185px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
-  transition: transform .35s, border-color .35s,
-    box-shadow .35s;
-}
-
-.principle:hover {
-  transform: translateY(-9px);
-  border-color: var(--accent-2);
-  box-shadow: 0 16px 40px var(--glow);
-}
-
-.principle-index {
-  color: var(--accent-2);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
-
-.principle h3 {
-  font-family: "Manrope", sans-serif;
-  font-size: 21px;
-  margin: 18px 0 8px;
-}
-
-.principle p {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* QUOTE */
-
-.quote-section {
-  text-align: center;
-  padding: 125px 0;
-  overflow: hidden;
-}
-
-.quote-mark {
-  font-family: Georgia, serif;
-  font-size: 70px;
-  line-height: 1;
-  color: var(--accent-2);
-}
-
-.quote-text {
-  font-family: "Manrope", sans-serif;
-  font-size: clamp(27px, 4vw, 46px);
-  font-weight: 700;
-  letter-spacing: -1.5px;
-  max-width: 850px;
-  margin: 25px auto;
-  line-height: 1.5;
-}
-
-.quote-sub {
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-
-/* CONTACT */
-
-.contact {
-  background: var(--surface);
-  border-top: 1px solid var(--line);
-}
-
-.contact-panel {
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  padding: 55px;
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-panel::after {
-  content: "";
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: var(--glow);
-  filter: blur(35px);
-  right: -60px;
-  top: -100px;
-  pointer-events: none;
-}
-
-.contact-panel h2 {
-  font-family: "Manrope", sans-serif;
-  font-size: 36px;
-  letter-spacing: -1.5px;
-  margin: 12px 0;
-}
-
-.contact-panel p {
-  color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 24px;
-}
-
-/* FOOTER */
-
-footer {
-  padding: 27px 0;
-  border-top: 1px solid var(--line);
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-/* REVEAL ANIMATIONS */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .8s ease, transform .8s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.delay-1 { transition-delay: .12s; }
-.delay-2 { transition-delay: .24s; }
-.delay-3 { transition-delay: .36s; }
-
-.language-content {
-  transition: opacity .2s, transform .2s;
-}
-
-.language-content.switching {
-  opacity: 0;
-  transform: translateY(5px);
-}
-
-/* KEYFRAMES */
-
-@keyframes rotate {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 800px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .science-visual {
-    min-height: 290px;
-  }
-
-  .orbit { width: 230px; height: 230px; }
-  .orbit.two { width: 170px; height: 170px; }
-
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 38px;
-  }
-
-  .philosophy-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-right { gap: 12px; }
-  .nav-links { gap: 13px; }
-}
-
-@media (max-width: 560px) {
-  nav { height: 66px; }
-
-  .logo { font-size: 16px; }
-  .nav-links { gap: 10px; }
-  .nav-links a { font-size: 11px; }
-
-  .nav-links a:nth-child(3) { display: none; }
-
-  .controls { gap: 5px; }
-  .control-btn { padding: 6px 8px; font-size: 10px; }
-
-  .hero {
-    min-height: auto;
-    padding: 140px 0 65px;
-  }
-
-  .hero h1 {
-    font-size: 58px;
-    letter-spacing: -3px;
-  }
-
-  section { padding: 75px 0; }
-
-  .contact-panel { padding: 30px 22px; }
-  .contact-panel h2 { font-size: 29px; }
-
-  .fact { grid-template-columns: 95px 1fr; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+<a class="skip-link" href="#main">跳至正文 / Skip to content</a>
 
 <header>
   <div class="container">
-    <nav>
+    <nav aria-label="主导航 / Main navigation">
       <a href="#" class="logo">Yanhao Zhao<span>.</span></a>
 
       <div class="nav-right">
@@ -672,22 +33,23 @@ footer {
         </div>
 
         <div class="controls">
+          <button class="control-btn" id="motionBtn" aria-pressed="false" aria-label="暂停动画">暂停动画</button>
           <button class="control-btn" id="langBtn"
-            aria-label="Switch language">EN</button>
+            aria-label="切换为英文 / Switch to English">EN</button>
           <button class="control-btn" id="themeBtn"
-            aria-label="Switch color theme">☾</button>
+            aria-label="切换深色主题" aria-pressed="false">☾</button>
         </div>
       </div>
     </nav>
   </div>
 </header>
 
-<main>
+<main id="main">
 
 <!-- HERO -->
 
 <section class="hero" id="home">
-  <canvas id="particles"></canvas>
+  <canvas id="particles" aria-hidden="true"></canvas>
 
   <div class="container hero-content">
     <div class="hero-grid">
@@ -704,16 +66,12 @@ footer {
         </h1>
 
         <div class="hero-motto reveal delay-2 language-content"
-          data-cn="每一个未来都由当下决定。"
+          data-cn="每一个未来都由当下决定"
           data-en="Every future is determined by the present.">
-          每一个未来都由当下决定。
+          每一个未来都由当下决定
         </div>
 
-        <p class="hero-description reveal delay-3"
-          data-cn="你好，我是赵衍浩。欢迎来到我的个人空间。这里记录我的经历、思考，以及不断探索的过程。"
-          data-en="Hello, I'm Yanhao Zhao. Welcome to my personal space — a place for my experiences, reflections, and ongoing journey of discovery.">
-          你好，我是赵衍浩。欢迎来到我的个人空间。这里记录我的经历、思考，以及不断探索的过程。
-        </p>
+        <p class="hero-description reveal delay-3" data-cn="赵衍浩 · 北京大学药学院本科生" data-en="Yanhao Zhao · Undergraduate, School of Pharmaceutical Sciences, Peking University">赵衍浩 · 北京大学药学院本科生</p>
 
         <div class="hero-actions reveal delay-3">
           <a href="#about" class="btn btn-primary"
@@ -728,11 +86,22 @@ footer {
         </div>
       </div>
 
-      <div class="science-visual reveal delay-2"
-        aria-label="Abstract scientific visual">
-        <div class="orbit"></div>
-        <div class="orbit two"></div>
-        <div class="core">✳</div>
+      <div class="science-visual reveal delay-2" aria-hidden="true">
+        <div class="molecule-stage" id="moleculeStage">
+          <div class="molecule-grid"></div>
+          <svg class="molecule" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g class="molecule-turn">
+              <circle class="molecule-guide" cx="210" cy="210" r="166"/>
+              <g class="molecule-bonds"><path d="M210 210 142 104 265 83 326 186 273 306 148 326 85 222 142 104M210 210 326 186M210 210 273 306M210 210 148 326M210 210 85 222M142 104 265 83M265 83 326 186M273 306 148 326"/><path class="double-bond" d="m155 117 100-17m61 101-44 91m-130 18-44-77"/></g>
+              <g class="molecule-nodes"><circle cx="142" cy="104" r="15"/><circle cx="265" cy="83" r="10"/><circle cx="326" cy="186" r="19"/><circle cx="273" cy="306" r="13"/><circle cx="148" cy="326" r="18"/><circle cx="85" cy="222" r="10"/></g>
+              <circle class="molecule-halo" cx="210" cy="210" r="47"/>
+              <circle class="molecule-nucleus" cx="210" cy="210" r="27"/>
+              <path class="nucleus-cross" d="M198 210h24m-12-12v24"/>
+            </g>
+          </svg>
+          <span class="molecule-index">01 / MOLECULE</span>
+          <span class="molecule-coordinate">STRUCTURE / MOTION</span>
+        </div>
         <div class="visual-caption">SCIENCE · THINKING · FUTURE</div>
       </div>
 
@@ -755,13 +124,7 @@ footer {
 
     <div class="about-grid">
 
-      <div class="about-copy reveal language-content"
-        data-cn="嗨，我是赵衍浩，来自中国大陆。<br><br>我高中毕业于北京四中，目前就读于北京大学药学院。<br><br>我想成为一个能够照顾好自己、能够真正独立自主的人。我也很想沉下心来学习新知，保持好奇与思考，永远跟上时代。"
-        data-en="Hello, I'm Yanhao Zhao, from mainland China.<br><br>I graduated from Beijing No. 4 High School and am currently an undergraduate student at Peking University's School of Pharmaceutical Sciences.<br><br>I aspire to become an independent person who can take good care of himself. I also hope to devote myself to learning, remain curious, and keep pace with a changing world.">
-        嗨，我是赵衍浩，来自中国大陆。<br><br>
-        我高中毕业于北京四中，目前就读于北京大学药学院。<br><br>
-        我想成为一个能够照顾好自己、能够真正独立自主的人。我也很想沉下心来学习新知，保持好奇与思考，永远跟上时代。
-      </div>
+      <div class="about-copy reveal language-content" data-cn="嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。" data-en="Hi, I'm Yanhao Zhao, from mainland China. I graduated from Beijing No. 4 High School and study at Peking University's School of Pharmaceutical Sciences as an undergraduate. I want to become someone who can take good care of himself and be truly independent. I also want to settle down to learn new things and always keep pace with the times.">嗨，我是赵衍浩，来自中国大陆。我高中毕业于北京四中，本科就读于北京大学药学院。我想成为一个能够照顾好自己、能够真正独立自主的人，我也很想沉下心来学习新知，永远跟上时代。</div>
 
       <div class="profile-facts reveal delay-1">
 
@@ -845,7 +208,7 @@ footer {
       <article class="principle reveal delay-1">
         <div class="principle-index">02 — LEARN</div>
         <h3 data-cn="沉下心来"
-          data-en="Deep Learning">沉下心来</h3>
+          data-en="Focused Learning">沉下心来</h3>
         <p data-cn="保持专注，认真理解每一件值得学习的事。"
           data-en="Staying focused and understanding what is worth learning.">
           保持专注，认真理解每一件值得学习的事。
@@ -874,9 +237,9 @@ footer {
     <div class="quote-mark">“</div>
 
     <div class="quote-text language-content"
-      data-cn="每一个未来都由当下决定。"
+      data-cn="每一个未来都由当下决定"
       data-en="Every future is determined by the present.">
-      每一个未来都由当下决定。
+      每一个未来都由当下决定
     </div>
 
     <div class="quote-sub">YANHAO ZHAO · 2026</div>
@@ -917,232 +280,15 @@ footer {
 <footer>
   <div class="container footer-inner">
     <span>© 2026 Yanhao Zhao.</span>
-    <span data-cn="每一个未来都由当下决定。"
+    <span data-cn="每一个未来都由当下决定"
       data-en="Every future is determined by the present.">
-      每一个未来都由当下决定。
+      每一个未来都由当下决定
     </span>
   </div>
 </footer>
 
-<script>
-/* THEME */
-
-const root = document.documentElement;
-const themeBtn = document.getElementById("themeBtn");
-
-let savedTheme = "light";
-
-try {
-  savedTheme = localStorage.getItem("site-theme") || "light";
-} catch (error) {}
-
-function setTheme(theme) {
-  root.dataset.theme = theme;
-  themeBtn.textContent = theme === "dark" ? "☀" : "☾";
-
-  document.querySelector('meta[name="theme-color"]')
-    .setAttribute("content",
-      theme === "dark" ? "#0b0a12" : "#f7f8fa");
-
-  try {
-    localStorage.setItem("site-theme", theme);
-  } catch (error) {}
-}
-
-setTheme(savedTheme);
-
-themeBtn.addEventListener("click", () => {
-  const next = root.dataset.theme === "dark" ? "light" : "dark";
-  setTheme(next);
-});
-
-/* LANGUAGE */
-
-let language = "zh";
-const langBtn = document.getElementById("langBtn");
-
-langBtn.addEventListener("click", () => {
-  const next = language === "zh" ? "en" : "zh";
-
-  document.querySelectorAll("[data-cn][data-en]").forEach(el => {
-    el.classList.add("switching");
-  });
-
-  setTimeout(() => {
-    document.querySelectorAll("[data-cn][data-en]").forEach(el => {
-      el.innerHTML = el.getAttribute(
-        next === "zh" ? "data-cn" : "data-en"
-      );
-      el.classList.remove("switching");
-    });
-
-    language = next;
-    langBtn.textContent = next === "zh" ? "EN" : "中文";
-    root.lang = next === "zh" ? "zh-CN" : "en";
-  }, 180);
-});
-
-/* SCROLL REVEAL */
-
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
-document.querySelectorAll(".reveal").forEach(el => {
-  revealObserver.observe(el);
-});
-
-/* ACTIVE NAVIGATION */
-
-const sections = document.querySelectorAll("main section[id]");
-const navLinks = document.querySelectorAll(".nav-links a");
-
-const sectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(link => {
-        link.classList.toggle(
-          "active",
-          link.getAttribute("href") === "#" + entry.target.id
-        );
-      });
-    }
-  });
-}, { rootMargin: "-30% 0px -60% 0px" });
-
-sections.forEach(section => sectionObserver.observe(section));
-
-/* PARTICLE NETWORK */
-
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-let particles = [];
-let animationFrame = null;
-let lastFrame = 0;
-
-const reduceMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)"
-).matches;
-
-function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  particles = [];
-
-  const count = Math.min(
-    65,
-    Math.floor(rect.width / 17)
-  );
-
-  for (let i = 0; i < count; i++) {
-    particles.push({
-      x: Math.random() * rect.width,
-      y: Math.random() * rect.height,
-      vx: (Math.random() - .5) * .35,
-      vy: (Math.random() - .5) * .35,
-      radius: Math.random() * 1.8 + .6
-    });
-  }
-}
-
-function drawParticles(time) {
-  if (reduceMotion) return;
-
-  if (document.hidden) {
-    animationFrame = null;
-    return;
-  }
-
-  if (time - lastFrame < 33) {
-    animationFrame = requestAnimationFrame(drawParticles);
-    return;
-  }
-
-  lastFrame = time;
-
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-
-  ctx.clearRect(0, 0, width, height);
-
-  const dark = root.dataset.theme === "dark";
-  const color = dark ? "174,151,255" : "91,116,163";
-
-  particles.forEach(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if (p.x < 0 || p.x > width) p.vx *= -1;
-    if (p.y < 0 || p.y > height) p.vy *= -1;
-
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${color},.55)`;
-    ctx.fill();
-  });
-
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const a = particles[i];
-      const b = particles[j];
-
-      const dx = a.x - b.x;
-      const dy = a.y - b.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < 115) {
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle =
-          `rgba(${color},${.16 * (1 - distance / 115)})`;
-        ctx.lineWidth = .7;
-        ctx.stroke();
-      }
-    }
-  }
-
-  animationFrame = requestAnimationFrame(drawParticles);
-}
-
-function startParticles() {
-  if (reduceMotion || animationFrame !== null) return;
-  animationFrame = requestAnimationFrame(drawParticles);
-}
-
-function stopParticles() {
-  if (animationFrame !== null) {
-    cancelAnimationFrame(animationFrame);
-    animationFrame = null;
-  }
-}
-
-resizeCanvas();
-startParticles();
-
-window.addEventListener("resize", () => {
-  resizeCanvas();
-});
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    stopParticles();
-  } else {
-    startParticles();
-  }
-});
-</script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
+
