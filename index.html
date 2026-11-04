@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Yanhao Zhao 的个人主页，记录药学、Python、人工智能与学习探索。">
+<title>Yanhao Zhao | Personal Website</title>
+
+<style>
+:root {
+  --navy: #183153;
+  --blue: #426b9a;
+  --text: #263445;
+  --muted: #718096;
+  --bg: #f7f9fc;
+  --white: #ffffff;
+  --line: #e6ebf1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1080px, 88%);
+  margin: auto;
+}
+
+/* Navigation */
+
+header {
+  background: rgba(255,255,255,.92);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+}
+
+nav {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 750;
+  color: var(--navy);
+  letter-spacing: -.5px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.nav-links a:hover {
+  color: var(--blue);
+}
+
+.lang-btn {
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 20px;
+  padding: 6px 15px;
+  cursor: pointer;
+  color: var(--navy);
+}
+
+/* Hero */
+
+.hero {
+  padding: 115px 0 100px;
+  background: linear-gradient(135deg, #edf3fa, #ffffff);
+}
+
+.eyebrow {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 7vw, 68px);
+  color: var(--navy);
+  line-height: 1.2;
+  margin: 20px 0;
+  letter-spacing: -2px;
+}
+
+.hero h2 {
+  font-size: clamp(19px, 3vw, 25px);
+  font-weight: 450;
+  color: #52677f;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 11px 23px;
+  border-radius: 7px;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--blue);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border: 1px solid #cbd5e1;
+  color: var(--navy);
+}
+
+/* General sections */
+
+section {
+  padding: 85px 0;
+}
+
+.section-label {
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.section-title {
+  color: var(--navy);
+  font-size: 32px;
+  margin: 8px 0 30px;
+}
+
+.about-text {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.light {
+  background: white;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+  transition: .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(24,49,83,.07);
+}
+
+.card-icon {
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  color: var(--navy);
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Interests */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.tag {
+  background: #edf3fa;
+  color: var(--navy);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+/* Contact */
+
+.contact-box {
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 50px;
+  color: white;
+}
+
+.contact-box h2 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.contact-box p {
+  color: #c3d0df;
+  margin-bottom: 25px;
+}
+
+.contact-box .btn {
+  background: white;
+  color: var(--navy);
+}
+
+/* Footer */
+
+footer {
+  padding: 28px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .nav-links {
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .logo {
+    font-size: 17px;
+  }
+
+  .hero {
+    padding: 80px 0;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    padding: 65px 0;
+  }
+
+  .contact-box {
+    padding: 30px 24px;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-links a:nth-child(3) {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo">Yanhao Zhao.</a>
+
+      <div class="nav-links">
+        <a href="#about" data-cn="关于我" data-en="About">关于我</a>
+        <a href="#interests" data-cn="兴趣方向" data-en="Interests">兴趣方向</a>
+        <a href="#projects" data-cn="学习项目" data-en="Projects">学习项目</a>
+        <a href="#contact" data-cn="联系" data-en="Contact">联系</a>
+        <button class="lang-btn" onclick="toggleLanguage()">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- Hero -->
+
+<div class="hero">
+  <div class="container">
+    <div class="eyebrow"
+      data-cn="PERSONAL WEBSITE"
+      data-en="PERSONAL WEBSITE">
+      PERSONAL WEBSITE
+    </div>
+
+    <h1>Yanhao Zhao</h1>
+
+    <h2 data-cn="探索科学，理解技术，保持好奇。"
+        data-en="Exploring Science. Understanding Technology.">
+      探索科学，理解技术，保持好奇。
+    </h2>
+
+    <p data-cn="你好，欢迎来到我的个人网站。我是一名北京大学药学院本科生，对药学、人工智能与计算机科学充满兴趣。这里将记录我的学习、探索与成长。"
+       data-en="Hello! Welcome to my personal website. I am an undergraduate student at Peking University's School of Pharmaceutical Sciences, interested in pharmaceutical sciences, artificial intelligence and computer science.">
+      你好，欢迎来到我的个人网站。我是一名北京大学药学院本科生，对药学、人工智能与计算机科学充满兴趣。这里将记录我的学习、探索与成长。
+    </p>
+
+    <div class="buttons">
+      <a href="#about" class="btn btn-primary"
+         data-cn="了解我" data-en="About Me">了解我</a>
+      <a href="#projects" class="btn btn-outline"
+         data-cn="探索我的学习" data-en="Explore My Learning">探索我的学习</a>
+    </div>
+  </div>
+</div>
+
+<!-- About -->
+
+<section id="about">
+  <div class="container">
+    <div class="section-label">01 / ABOUT</div>
+
+    <h2 class="section-title"
+        data-cn="关于我" data-en="About Me">关于我</h2>
+
+    <p class="about-text"
+       data-cn="我目前就读于北京大学药学院。除了药学专业知识，我也在逐步学习 Python、人工智能和计算机科学，希望理解科学研究与计算技术之间的联系。&#10;&#10;我相信持续学习、独立思考和动手实践的价值。这个网站是我整理知识、展示探索过程以及记录成长的空间。"
+       data-en="I am currently studying at Peking University's School of Pharmaceutical Sciences. Beyond pharmaceutical sciences, I am gradually learning Python, artificial intelligence and computer science. I hope to understand the connections between scientific research and computing.&#10;&#10;I value continuous learning, independent thinking and hands-on practice. This website is a space to organize knowledge and document my journey.">
+      我目前就读于北京大学药学院。除了药学专业知识，我也在逐步学习 Python、人工智能和计算机科学，希望理解科学研究与计算技术之间的联系。
+
+      我相信持续学习、独立思考和动手实践的价值。这个网站是我整理知识、展示探索过程以及记录成长的空间。
+    </p>
+  </div>
+</section>
+
+<!-- Interests -->
+
+<section class="light" id="interests">
+  <div class="container">
+    <div class="section-label">02 / INTERESTS</div>
+
+    <h2 class="section-title"
+        data-cn="兴趣与学习方向"
+        data-en="Interests & Learning">
+      兴趣与学习方向
+    </h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-icon">🧬</div>
+        <h3 data-cn="药学与生命科学"
+            data-en="Pharmaceutical Sciences">
+          药学与生命科学
+        </h3>
+        <p data-cn="探索药物作用机制、药物研发及生命科学基础知识。"
+           data-en="Exploring drug mechanisms, pharmaceutical development and life sciences.">
+          探索药物作用机制、药物研发及生命科学基础知识。
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h3 data-cn="Python 与计算机科学"
+            data-en="Python & Computer Science">
+          Python 与计算机科学
+        </h3>
+        <p data-cn="从编程基础出发，逐步学习算法、数据处理与软件开发。"
+           data-en="Learning programming, algorithms, data processing and software development.">
+          从编程基础出发，逐步学习算法、数据处理与软件开发。
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <h3 data-cn="人工智能"
+            data-en="Artificial Intelligence">
+          人工智能
+        </h3>
+        <p data-cn="关注机器学习、大语言模型及 AI 在科学研究中的应用。"
+           data-en="Interested in machine learning, large language models and AI in scientific research.">
+          关注机器学习、大语言模型及 AI 在科学研究中的应用。
+        </p>
+      </div>
+
+    </div>
+
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Artificial Intelligence</span>
+      <span class="tag">Pharmaceutical Sciences</span>
+      <span class="tag">Computer Science</span>
+      <span class="tag">Scientific Thinking</span>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+
+<section id="projects">
+  <div class="container">
+    <div class="section-label">03 / PROJECTS</div>
+
+    <h2 class="section-title"
+        data-cn="学习与项目"
+        data-en="Learning & Projects">
+      学习与项目
+    </h2>
+
+    <p class="about-text"
+       data-cn="这里将逐步展示我的编程练习、AI 学习成果和药学相关探索。随着学习深入，我会持续更新。"
+       data-en="This section will gradually showcase my programming practice, AI learning and pharmaceutical explorations.">
+      这里将逐步展示我的编程练习、AI 学习成果和药学相关探索。随着学习深入，我会持续更新。
+    </p>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-icon">🐍</div>
+        <h3>Python Learning</h3>
+        <p data-cn="记录 Python 学习过程，包括基础语法、算法与实践练习。"
+           data-en="Documenting Python fundamentals, algorithms and practice.">
+          记录 Python 学习过程，包括基础语法、算法与实践练习。
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>AI Exploration</h3>
+        <p data-cn="探索人工智能技术、开源项目与大语言模型。"
+           data-en="Exploring AI technologies, open-source projects and LLMs.">
+          探索人工智能技术、开源项目与大语言模型。
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>Pharmaceutical Science</h3>
+        <p data-cn="整理药学基础知识、化学实验与科学学习笔记。"
+           data-en="Organizing pharmaceutical knowledge, chemistry experiments and scientific notes.">
+          整理药学基础知识、化学实验与科学学习笔记。
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+
+<section class="light" id="contact">
+  <div class="container">
+    <div class="contact-box">
+      <div class="section-label" style="color:#a9c6e8">
+        04 / CONTACT
+      </div>
+
+      <h2 data-cn="保持联系" data-en="Get in Touch">
+        保持联系
+      </h2>
+
+      <p data-cn="欢迎访问我的 GitHub，了解我的学习记录与未来项目。"
+         data-en="Feel free to visit my GitHub profile and follow my learning journey.">
+        欢迎访问我的 GitHub，了解我的学习记录与未来项目。
+      </p>
+
+      <a href="https://github.com/YanhaoZhao13"
+         target="_blank" rel="noopener noreferrer"
+         class="btn">
+        GitHub Profile ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 Yanhao Zhao. Built with curiosity and HTML & CSS.
+</footer>
+
+<script>
+let currentLanguage = "zh";
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === "zh" ? "en" : "zh";
+
+  document.querySelectorAll("[data-cn][data-en]").forEach(element => {
+    element.textContent =
+      element.getAttribute(currentLanguage === "zh" ? "data-cn" : "data-en");
+  });
+
+  document.querySelector(".lang-btn").textContent =
+    currentLanguage === "zh" ? "EN" : "中文";
+
+  document.documentElement.lang =
+    currentLanguage === "zh" ? "zh-CN" : "en";
+}
+</script>
+
+</body>
+</html>
