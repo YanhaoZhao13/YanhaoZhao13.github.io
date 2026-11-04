@@ -135,21 +135,28 @@ const revealTargets = [...document.querySelectorAll('.reveal')];
 function showReveal(el) {
   el.classList.remove('reveal-pending');
   el.classList.add('visible');
-  revealObserver?.unobserve(el);
 }
 function syncReveals() {
   if (!('IntersectionObserver' in window) || reduced()) {
     revealTargets.forEach(showReveal);
     revealObserver?.disconnect();
+    revealObserver = null;
     return;
   }
   if (revealObserver) return;
   revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (entry.isIntersecting) showReveal(entry.target); });
+    entries.forEach(entry => {
+      if (entry.isIntersecting || entry.target.contains(document.activeElement)) {
+        showReveal(entry.target);
+      } else {
+        // Re-arm only outside the viewport; keep keyboard focus visible.
+        entry.target.classList.remove('visible');
+        entry.target.classList.add('reveal-pending');
+      }
+    });
   }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
   revealTargets.forEach(el => {
-    if (el.classList.contains('visible')) return;
-    el.classList.add('reveal-pending');
+    if (!el.contains(document.activeElement)) el.classList.add('reveal-pending');
     revealObserver.observe(el);
   });
 }
